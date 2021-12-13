@@ -20,11 +20,11 @@ func SumAll(numbersToSum ...[]int) []int {
 func SumAllTails(numbersToTailSum ...[]int) []int {
 	var tailSums []int
 	for _, numbers := range numbersToTailSum {
-		if len(numbers) > 0 {
+		if len(numbers) == 0 {
+			tailSums = append(tailSums, 0)
+		} else {
 			tail := numbers[1:]
 			tailSums = append(tailSums, Sum(tail))
-		} else {
-			tailSums = append(tailSums, 0)
 		}
 	}
 	return tailSums
