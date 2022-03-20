@@ -1,11 +1,20 @@
 package blogposts_test
 
 import (
+	"errors"
+	"io/fs"
 	"testing"
 	"testing/fstest"
 
 	blogposts "github.com/tomaaron/blogposts"
 )
+
+type StubFailingFS struct {
+}
+
+func (s StubFailingFS) Open(name string) (fs.File, error) {
+	return nil, errors.New("oh no, i always fail")
+}
 
 func TestNewBlogPosts(t *testing.T) {
 	fs := fstest.MapFS{
@@ -13,9 +22,21 @@ func TestNewBlogPosts(t *testing.T) {
 		"hello-world2.md": {Data: []byte("hola")},
 	}
 
-	posts := blogposts.NewPostsFromFS(fs)
+	posts, err := blogposts.NewPostsFromFS(fs)
+
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	if len(posts) != len(fs) {
 		t.Errorf("got %d posts, wanted %d posts", len(posts), len(fs))
+	}
+}
+
+func TestFailedFS(t *testing.T) {
+	_, err := blogposts.NewPostsFromFS(StubFailingFS{})
+
+	if err == nil {
+		t.Errorf("corrupt filesystem didn't fail")
 	}
 }
