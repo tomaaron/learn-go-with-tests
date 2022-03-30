@@ -19,15 +19,7 @@
 </nav>
 <main>
 
-<h1>hello world</h1>
-
-<p>This is a description</p>
-
-Tags: <ul><li>go</li><li>tdd</li></ul>
-<h1 id="first-recipe">First recipe!</h1>
-
-<p>Welcome to my <strong>amazing blog</strong>. I am going to write about my family recipes, and make sure I write a long, irrelevant and boring story about my family before you get to the actual instructions.</p>
-
+<ol><li><a href="/post/hello-world">Hello World</a></li><li><a href="/post/hello-world-2">Hello World 2</a></li></ol>
 
 </main>
 <footer>
